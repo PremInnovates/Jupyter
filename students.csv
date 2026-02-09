@@ -1,0 +1,11 @@
+StudentID,Name,Gender,Age,Course,Marks,Attendence,City
+101,Asha,F,20,BCA,78,85,Ahmedabad
+102,Ravi,M,21,Bsc,65,70,Surat
+103,Neha,F,19,BCA,88,90,Vadodara
+104,Aman,M,22,Bcom,55,60,Rajkot
+105,Pooja,F,20,Bsc,92,95,Ahmedabad
+106,Astha,F,20,BCA,85,85,Ahmedabad
+107,Rakesh,M,21,Bsc,74,69,Surat
+108,Nisha,F,19,BCA,96,74,Vadodara
+109,Arpit,M,22,Bcom,85,45,Rajkot
+110,Khushi,F,20,Bsc,87,88,Ahmedabad

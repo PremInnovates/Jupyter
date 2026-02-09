@@ -1,0 +1,16 @@
+CustomerID,Surname,Age,Gender,Geography,Balance
+1,Smith,28,Male,USA,5400
+2,Johnson,35,Female,UK,8200
+3,Williams,42,Male,USA,9600
+4,Brown,31,Female,Canada,12000
+5,Jones,38,Male,Australia,8800
+6,Miller,47,Female,Germany,15000
+7,Davis,40,Male,USA,9100
+8,Garcia,26,Female,Spain,3000
+9,Martinez,52,Male,Mexico,10000
+10,Anderson,34,Female,Sweden,7600
+11,Taylor,45,Male,UK,8400
+12,Thomas,29,Female,USA,6700
+13,Moore,33,Male,Canada,9200
+14,Martin,41,Male,France,9800
+15,Lee,36,Female,South Korea,8600
