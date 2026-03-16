@@ -1,0 +1,297 @@
+#NAME: VADNERE PREM PARESH
+#ENROLLMENT NUMBER: 202500819010129
+
+#set-1
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+
+# 1.
+df = pd.read_csv("Churn_Modelling.csv")
+
+print("Dataset Shape:", df.shape)
+print("Column Names:")
+print(df.columns)
+
+# 2.
+print("\nRandom 8 Records:")
+print(df.sample(8))
+
+# 3.
+avg_balance = df['Balance'].mean()
+print("\nAverage Balance:", avg_balance)
+
+above_avg = df[df['Balance'] > avg_balance]
+print("\nCustomers with Balance above average:")
+print(above_avg)
+
+# 4.
+print("\nCustomer Count by Geography:")
+print(df['Geography'].value_counts())
+
+# 5.
+print("\nCreditScore Statistics:")
+print("Mean:", df['CreditScore'].mean())
+print("Median:", df['CreditScore'].median())
+print("Variance:", df['CreditScore'].var())
+
+# 6. 
+colors = df['Gender'].map({'Male':0, 'Female':1})
+
+plt.scatter(df['Age'], df['Balance'], c=colors)
+plt.xlabel("Age")
+plt.ylabel("Balance")
+plt.title("Age vs Balance colored by Gender")
+plt.show()
+
+# 7.
+X = df[['Age']]
+y = df['Balance']
+
+model = LinearRegression()
+model.fit(X, y)
+
+# 8.
+predicted_balance = model.predict([[40]])
+print("\nPredicted Balance for Age 40:", predicted_balance[0])
+
+
+#SET-2
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# 1. 
+df = pd.read_csv("StudentsPerformance.csv")
+
+print("Column Names:")
+print(df.columns)
+
+# 2. 
+print("\nFirst 6 Records:")
+print(df.head(6))
+
+# 3. 
+duplicates = df.duplicated().sum()
+print("\nNumber of Duplicate Records:", duplicates)
+
+df = df.drop_duplicates()
+
+# 4.
+print("\nAverage Scores:")
+print("Math Average:", df['math score'].mean())
+print("Reading Average:", df['reading score'].mean())
+print("Writing Average:", df['writing score'].mean())
+
+# 5. 
+math_avg = df['math score'].mean()
+below_avg_students = df[df['math score'] < math_avg]
+
+print("\nStudents with Math Score below class average:")
+print(below_avg_students)
+
+# 6. 
+print("\nStudents Count by Gender:")
+print(df['gender'].value_counts())
+
+print("\nStudents Count by Parental Level of Education:")
+print(df['parental level of education'].value_counts())
+
+# 7.
+df['Total_Score'] = df['math score'] + df['reading score'] + df['writing score']
+
+print("\nDataset with Total_Score Column:")
+print(df.head())
+
+# 8. 
+top_students = df.sort_values(by='Total_Score', ascending=False).head(10)
+
+print("\nTop 10 Students Based on Total Score:")
+print(top_students)
+
+# 9.    
+plt.hist(df['math score'], bins=10)
+plt.xlabel("Math Score")
+plt.ylabel("Number of Students")
+plt.title("Histogram of Math Scores")
+plt.show()
+
+#set-3
+
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.impute import SimpleImputer
+
+# 1.
+df = pd.read_csv('Housing.csv')
+print(df.describe())
+
+# 2.
+X = df[['Area']]
+y = df['Price']
+
+# 3.
+imputer = SimpleImputer(strategy='mean')
+df_imputed = pd.DataFrame(imputer.fit_transform(df), columns=df.columns)
+X_imputed = df_imputed[['Area']]
+y_imputed = df_imputed['Price']
+
+# 4. 
+plt.scatter(X_imputed, y_imputed, color='blue')
+plt.title('Area vs Price')
+plt.xlabel('Area (sq.ft.)')
+plt.ylabel('Price')
+plt.show()
+
+# 5.
+X_train, X_test, y_train, y_test = train_test_split(X_imputed, y_imputed, test_size=0.2, random_state=42)
+
+# 6. 
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# 7. 
+print(f"Equation: Price = {model.coef_[0]:.2f} * Area + {model.intercept_:.2f}")
+
+# 8. 
+y_pred = model.predict(X_test)
+
+# 9.
+val_2500 = model.predict([[2500]])
+print(f"Predicted price for 2500 sq.ft: ${val_2500[0]:.2f}")
+
+
+#set-4
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# 1. 
+df = pd.read_csv("IMDB-Movie-Data.csv")
+print("Dataset Info:")
+print(df.info())
+
+# 2. 
+print("\nLast 5 Records:")
+print(df.tail())
+
+# 3. 
+movies_after_2015 = df[df["Year"] > 2015]
+print("\nMovies released after 2015:")
+print(movies_after_2015[["Title", "Year"]])
+
+# 4. 
+avg_rating = df["Rating"].mean()
+print("\nAverage IMDB Rating:", avg_rating)
+
+# 5. 
+top5_movies = df.sort_values(by="Rating", ascending=False).head(5)
+print("\nTop 5 Highest Rated Movies:")
+print(top5_movies[["Title", "Rating"]])
+
+# 6. 
+director_count = df["Director"].value_counts()
+top_director = director_count.idxmax()
+print("\nDirector with maximum movies:", top_director)
+print("Number of movies:", director_count.max())
+
+# 7. 
+runtime_std = df["Runtime (Minutes)"].std()
+print("\nStandard Deviation of Runtime:", runtime_std)
+
+# 8. 
+avg_revenue = df["Revenue (Millions)"].mean()
+high_revenue_movies = df[df["Revenue (Millions)"] > avg_revenue]
+
+print("\nMovies with revenue greater than dataset average:")
+print(high_revenue_movies[["Title", "Revenue (Millions)"]])
+
+# 9. 
+plt.figure()
+plt.scatter(df["Runtime (Minutes)"], df["Rating"])
+plt.xlabel("Runtime (Minutes)")
+plt.ylabel("IMDB Rating")
+plt.title("Runtime vs IMDB Rating")
+plt.show()
+
+# 10.
+top5_directors = df["Director"].value_counts().head(5)
+
+plt.figure()
+top5_directors.plot(kind="bar")
+plt.xlabel("Director")
+plt.ylabel("Number of Movies")
+plt.title("Top 5 Directors by Movie Count")
+plt.show()
+
+
+
+#set-5
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# 1. 
+df = pd.read_csv("online_retail_II.csv")
+
+print("First 5 Records:")
+print(df.head())
+
+
+# 2.
+df = df.dropna(subset=["Customer ID"])
+
+
+# 3. 
+df["InvoiceDate"] = pd.to_datetime(df["InvoiceDate"])
+
+
+# 4. 
+df["TotalAmount"] = df["Quantity"] * df["Price"]
+
+
+# 5.
+country_sales = df.groupby("Country")["TotalAmount"].sum()
+
+print("\nTotal Sales by Country:")
+print(country_sales)
+
+
+# 6.
+top_customers = df.groupby("Customer ID")["TotalAmount"].sum().sort_values(ascending=False).head(10)
+
+print("\nTop 10 Customers:")
+print(top_customers)
+
+
+# 7.
+negative_quantity = df[df["Quantity"] < 0]
+
+print("\nInvoices with Negative Quantity:")
+print(negative_quantity)
+
+
+# 8. 
+avg_total = df["TotalAmount"].mean()
+
+print("\nAverage Total Amount:", avg_total)
+
+
+# 9. 
+above_avg = df[df["TotalAmount"] > avg_total]
+
+print("\nTransactions greater than average:")
+print(above_avg)
+
+
+#
+plt.figure()
+
+plt.boxplot(df["TotalAmount"])
+
+plt.title("Box Plot of Total Amount")
+plt.ylabel("Total Amount")
+
+plt.show()
